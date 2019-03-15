@@ -1,13 +1,16 @@
 <template>
-  <login></login>
+  <div id="loginPage">
+    <p>这是登录页面</p>
+    <userlogin></userlogin>
+  </div>
 </template>
 
 <script>
-  import login from '@/login/components/login'
+  import userlogin from '@/login/components/login'
     export default {
         name: "loginPage",
       components:{
-        'login':login
+          'userlogin':userlogin
       }
     }
 </script>
