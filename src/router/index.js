@@ -11,9 +11,6 @@ Vue.use(Router)                    //显示声明要用路由
 export default new Router({        //注册路由
   routes: [
     {path:'/',name:'index',component:index},
-    {path:'/btn',name:'btn',component:pageButton},
-    {path:'/list',name:'list',component:pageList},
-    {path:'/nav',name:'nav',component:pageNav}
   ]
 })
 
