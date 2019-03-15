@@ -1,10 +1,9 @@
 <template>
-
 </template>
 
 <script>
     export default {
-        name: "pageNav"
+        name: "pageList",
     }
 </script>
 

@@ -4,7 +4,7 @@
 
 <script>
     export default {
-        name: "pageQuiButton"
+        name: "List"
     }
 </script>
 
