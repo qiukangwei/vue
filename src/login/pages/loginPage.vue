@@ -1,6 +1,5 @@
 <template>
   <div id="loginPage">
-    <p>这是登录页面</p>
     <userlogin></userlogin>
   </div>
 </template>
@@ -16,5 +15,7 @@
 </script>
 
 <style scoped>
-
+  #loginPage{
+    text-align: center;
+  }
 </style>

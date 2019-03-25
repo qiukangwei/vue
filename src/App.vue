@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <h1 class="page-title"><a href="#/">开发组件库</a></h1>
     <router-view></router-view>
   </div>
 </template>
@@ -13,5 +12,16 @@ export default {
 </script>
 
 <style>
-  @import "./assets/css/App.css";
+  #app {
+    font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: left;
+    color: #303133;
+    margin: 0;
+    padding: 0;
+  }
+  router-link{
+    text-decoration: none;
+  }
 </style>
