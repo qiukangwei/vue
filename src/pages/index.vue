@@ -15,12 +15,11 @@
 
 <script>
     import Menupage from "../index/pages/menuPage";
-    import IndexComponent from "../index/components/indexComponent";
     export default {
         name: "index",
       props:{
       },
-      components: {IndexComponent, Menupage},
+      components: { Menupage},
       methods:{
 
       }

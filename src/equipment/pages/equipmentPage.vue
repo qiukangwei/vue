@@ -3,7 +3,6 @@
 </template>
 
 <script>
-  import euqipmentList from "@/equipment/components/equipment-list";
   import queryEquipment from "@/equipment/components/queryEquipment";
   import addEquipment from "@/equipment/components/addEquipment";
   import modifyEquipment from "@/equipment/components/modifyEquipment";
@@ -20,7 +19,6 @@
           'add-equipment':addEquipment,
           'modify-equipment':modifyEquipment,
           'delete-equipment':deleteEquipment,
-          'equipment-list':euqipmentList
       },
       methods:{
           equipmentPageChange:function (equipmentView) {

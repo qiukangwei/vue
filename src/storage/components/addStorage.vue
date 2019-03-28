@@ -1,15 +1,12 @@
 <template>
-  <el-row type="flex" justify="center" style="margin-top: 10%">
-    <el-form :model="equipment" status-icon ref="equipment" label-width="100px">
-      <el-form-item><h1>新增设备信息</h1></el-form-item>
-      <el-form-item label="设备型号:" prop="emModel">
-        <el-input type="text" v-model="equipment.emModel"/>
+  <el-row type="flex" justify="center" >
+    <el-form :model="user" status-icon ref="user" label-width="100px">
+      <el-form-item><h1>新增库存信息</h1></el-form-item>
+      <el-form-item label="登录账号" prop="userAccout">
+        <el-input type="text" v-model="user.userAccout" clearable/>
       </el-form-item>
-      <el-form-item label="设备状态:" prop="eStatus">
-        <el-input type="text" v-model="equipment.eStatus"/>
-      </el-form-item>
-      <el-form-item label="备注:" prop="eRemake">
-        <el-input type="textarea" v-model="equipment.eRemake"></el-input>
+      <el-form-item label="用户名:" prop="userName">
+        <el-input type="text" v-model="user.userName" clearable/>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="submitForm('equipment')">提交</el-button>
@@ -21,13 +18,20 @@
 
 <script>
     export default {
-        name: "addEquipment",
+        name: "addStorage",
       data: function () {
         return {
-          equipment: {
-            emModel: '',
-            eStatus:'',
-            eRemake: ''
+          user: {
+            userAccout:'',
+            userName:'',
+            password:'',
+            password2:'',
+            userSex:'男',
+            userTel:'',
+            userEmail:'',
+            userAddress:'',
+            userRegisteredTime:'',
+            lastIp:''
           }
         }
       },
@@ -35,10 +39,7 @@
         submitForm(equipment)
         {
           this.$axios
-            .post('/addEM',{
-              emModel:this.equipment.emModel,
-              eStatus:this.equipment.eStatus,
-              eRemake:this.equipment.eRemake
+            .post('/register',{
             })
             .then(successResponse => {
               this.responseResult = JSON.stringify(successResponse.data)

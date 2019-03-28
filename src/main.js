@@ -17,6 +17,7 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',                  //最后的效果会替换页面中Id为app的div元素
   router,                      //使用路由
+  render: h => h(App),
   components: { App },         //告知当前页面想使用App这个组件
   template: '<App/>'           //告知页面这个组件用这样的标签来包裹着,并且使用它
 })
