@@ -2,14 +2,14 @@
   <el-container style="border:1px solid #eee">
     <el-header height="100px"><h1 class="page-title"><a href="#/">设备借用系统</a></h1></el-header>
       <el-container>
-        <el-aside>
+        <el-aside style="border:1px solid #eee">
           <Menupage/>
         </el-aside>
-        <el-main>
+        <el-main style="width: 1440px;height: 700px;">
           <router-view></router-view>
         </el-main>
       </el-container>
-    <el-footer></el-footer>
+    <el-footer style="border:1px solid #eee;height: 100px"></el-footer>
   </el-container>
 </template>
 

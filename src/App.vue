@@ -6,7 +6,18 @@
 
 <script>
 export default {
-  name: 'app'
+  name: 'app',
+  data:function () {
+    return{
+      loginUser:{
+        userId:1,
+        userPosition:"",
+        userTel:"",
+        userAccount:"",
+        lastTime:""
+      }
+    }
+  }
 }
 
 </script>

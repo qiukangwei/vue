@@ -15,7 +15,6 @@
       <el-button type="primary" @click="submitForm('equipmentModel')">提交</el-button>
       <el-button @click="resetForm('equipmentModel')">重置</el-button>
     </el-form-item>
-    <p>登录验证情况:<textarea cols="30" rows="10" v-model="responseResult"></textarea> </p>
   </el-form>
   </el-row>
 </template>
@@ -42,7 +41,6 @@
               emRemake:this.equipmentModel.emRemake
             })
             .then(successResponse => {
-              this.responseResult = JSON.stringify(successResponse.data)
               if (successResponse.data.code === 200) {
                 this.$router.replace({path:'/'})
               }

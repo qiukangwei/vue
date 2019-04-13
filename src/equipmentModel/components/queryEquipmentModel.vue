@@ -1,89 +1,142 @@
 <template>
-  <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
-    <el-form-item label="密码" prop="pass">
-      <el-input type="password" v-model="ruleForm2.pass" autocomplete="off"></el-input>
-    </el-form-item>
-    <el-form-item label="确认密码" prop="checkPass">
-      <el-input type="password" v-model="ruleForm2.checkPass" autocomplete="off"></el-input>
-    </el-form-item>
-    <el-form-item label="年龄" prop="age">
-      <el-input v-model.number="ruleForm2.age"></el-input>
-    </el-form-item>
-    <el-form-item>
-      <el-button type="primary" @click="submitForm('ruleForm2')">提交</el-button>
-      <el-button @click="resetForm('ruleForm2')">重置</el-button>
-    </el-form-item>
-  </el-form>
+  <el-container>
+    <el-container style="margin: auto;width: 50%">
+  <el-form :model="equipmentModel" status-icon ref="equipmentModel" label-width="100px">
+    <el-row style="width: 700px">
+      <el-form-item style="margin: auto;width: 50%"><h1>查询设备信息</h1></el-form-item>
+        <el-col :span="8">
+          <el-form-item label="设备类型编号:" prop="emId">
+            <el-input type="text" v-model="equipmentModel.emId" autocomplete="off" style="width: 100px"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="8">
+        <el-form-item label="设备名称:" prop="emName">
+          <el-input type="text" v-model="equipmentModel.emName" autocomplete="off" style="width: 144px"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="设备型号:" prop="emModel">
+              <el-input type="text" v-model="equipmentModel.emModel" autocomplete="off" style="width: 144px"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-form-item style="margin: auto 20%;width: 50%">
+          <el-button type="primary" @click="submitForm('equipmentModel')">提交</el-button>
+          <el-button @click="resetForm('equipmentModel')">重置</el-button>
+        </el-form-item>
+      </el-form>
+  </el-container>
+  <el-main>
+  <el-table :data="equipmentModels" style="width: 100%">
+    <el-table-column label="设备类型编号" width="180">
+      <template slot-scope="scope">
+        <span style="margin-left: 10px">{{ scope.row.emId}}</span>
+      </template>
+    </el-table-column>
+    <el-table-column label="设备名称" width="180">
+      <template slot-scope="scope">
+        <span style="margin-left: 10px">{{ scope.row.emName}}</span>
+      </template>
+    </el-table-column>
+    <el-table-column label="设备型号" width="180">
+          <template slot-scope="scope">
+            <span style="margin-left: 10px">{{ scope.row.emModel}}</span>
+          </template>
+    </el-table-column>
+    <el-table-column label="备注" width="180">
+      <template slot-scope="scope">
+        <span style="margin-left: 10px">{{ scope.row.emRemake}}</span>
+      </template>
+    </el-table-column>
+    <el-table-column label="操作">
+      <template slot-scope="scope">
+        <el-button
+          size="mini"
+          @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+        <el-button
+          size="mini"
+          type="danger"
+          @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+      </template>
+    </el-table-column>
+  </el-table>
+  </el-main>
+  <el-footer>
+    <el-pagination :page-size='pageData.pageSize' :pager-count="7" layout="total,sizes,prev, pager, next,jumper"
+                   :total="pageData.totalElement" @current-change="currentChange" @size-change="sizeChange"
+                   :page-sizes="[5,10,20]">
+    </el-pagination>
+  </el-footer>
+  </el-container>
 </template>
 
 <script>
     export default {
         name: "queryEquipmentModel",
       data() {
-        var checkAge = (rule, value, callback) => {
-              if (!value) {
-                return callback(new Error('年龄不能为空'));
-              }
-              setTimeout(() => {
-                if (!Number.isInteger(value)) {
-                  callback(new Error('请输入数字值'));
-                } else {
-                  if (value < 18) {
-                    callback(new Error('必须年满18岁'));
-                  } else {
-                    callback();
-                  }
-                }
-              }, 1000);
-            };
-            var validatePass = (rule, value, callback) => {
-              if (value === '') {
-                callback(new Error('请输入密码'));
-          } else {
-            if (this.ruleForm2.checkPass !== '') {
-              this.$refs.ruleForm2.validateField('checkPass');
-            }
-            callback();
-          }
-        };
-        var validatePass2 = (rule, value, callback) => {
-          if (value === '') {
-            callback(new Error('请再次输入密码'));
-          } else if (value !== this.ruleForm2.pass) {
-            callback(new Error('两次输入密码不一致!'));
-          } else {
-            callback();
-          }
-        };
         return {
-          ruleForm2: {
-            pass: '',
-            checkPass: '',
-            age: ''
+          equipmentModels:[],
+          equipmentModel:{
+            emName:'',
+            emModel:''
           },
-          rules2: {
-            pass: [
-              { validator: validatePass, trigger: 'blur' }
-            ],
-            checkPass: [
-              { validator: validatePass2, trigger: 'blur' }
-            ],
-            age: [
-              { validator: checkAge, trigger: 'blur' }
-            ]
+          pageData:{
+            page:1,
+            totalElement:0,
+            pageSize:10,
           }
-        };
+        }
+      },
+      created(){
+        this.equipmentModels=this.$store.state.equipmentModels;
       },
       methods: {
-        submitForm(formName) {
-          this.$refs[formName].validate((valid) => {
-            if (valid) {
-              alert('submit!');
-            } else {
-              console.log('error submit!!');
-              return false;
-            }
-          });
+        currentChange(page){
+          console.log(this.$store.state.equipmentModels.length)
+          if (this.$store.state.equipmentModels.length!=0) {
+            this.pageData.page = page;
+            this.queryEquipmentModel();
+          }
+        },
+        handleEdit(index, row) {
+          this.$store.commit('setEquipmentModel',row);
+          this.$router.push({path:'modifyEquipmentModel'});
+
+        },
+        handleDelete(index, row) {
+          this.$store.commit('setEquipmentModel',row);
+          this.$router.push({path:'deleteEquipmentModel'});
+        },
+        submitForm(equipmentModel){
+          this.queryEquipmentModel();
+        },
+        queryEquipmentModel(){
+          this.$axios
+            .post('/queryEquipmentModel',{
+              emId:this.equipmentModel.emId,
+              emName:this.equipmentModel.emName,
+              emModel:this.equipmentModel.emModel,
+              page:this.pageData.page,
+              pageSize:this.pageData.pageSize
+            })
+            .then(successResponse => {
+              if (successResponse.data.code === 200) {
+                this.equipmentModels=successResponse.data.data;
+                this.pageData.totalElement=successResponse.data.totalElement;
+                this.$store.commit('setEquipmentModels',successResponse.data.data);
+              }
+            })
+            .catch(failResponse => {
+              this.$alert(failResponse.data.message, '错误!', {
+                confirmButtonText: '确定'
+              });
+            })
+        },
+        sizeChange(pageSize){
+          if (this.$store.state.equipmentModels.length!=0) {
+            this.pageData.pageSize = pageSize;
+            this.queryEquipmentModel();
+          }
         },
         resetForm(formName) {
           this.$refs[formName].resetFields();

@@ -1,0 +1,70 @@
+import Vue from 'vue';
+import Vuex from 'vuex';
+
+Vue.use(Vuex);
+
+export default new Vuex.Store({
+    state:{
+      equipmentModels:[],
+      equipments:[],
+      users:[],
+      equipmentModel:{
+        emId:'',
+        emName:'',
+        emModel:'',
+        emRemake:''
+      },
+      equipment:{
+        eId:'',
+        eStatus:'',
+        emId:'',
+        eRemake:'',
+        equipmentModel:{
+          emName:'',
+          emModel:''
+        }
+      },
+      user:{
+        userId:"",
+        userPosition:"",
+        userRealName:"",
+        userBirthday:"",
+        userTel:"",
+        userAccount:"",
+        userSex:"",
+        userEmail:"",
+        userAddress:"",
+        userRegisteredTime:"",
+        lastIp:"",
+        lastTime:"",
+      },
+      loginUser:{
+        userId:"",
+        userPosition:"",
+        userTel:"",
+        userAccount:"",
+        lastTime:""
+      },
+      isLogin:[]
+    },
+  mutations:{
+      setEquipmentModel(state,equipmentModel){
+        this.state.equipmentModel=equipmentModel;
+      },
+    setEquipmentModels(state,equipmentModels){
+        this.state.equipmentModels=equipmentModels;
+      },
+    setLoginUser(state,loginUser){
+        this.state.loginUser=loginUser;
+      },
+    setUser(state,User){
+        this.state.User=User;
+        },
+    setUsers(state,Users){
+      this.state.Users=Users;
+    },
+    setIsLogin(state,IsLogin){
+      this.isLogin=isLogin
+    }
+  }
+});
