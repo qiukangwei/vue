@@ -4,53 +4,60 @@ import store from '@/store/login';
 //引用页面模板->供路由使用
 import index from '@/pages/index';
 
-import equipmentPage from '@/equipment/pages/equipmentPage';
+import equipmentPage from '@/stuff/equipment/equipmentPage';
 
-import addEquipment from '@/equipment/components/addEquipment';
-import queryEquipment from '@/equipment/components/queryEquipment';
-import modifyEquipment from '@/equipment/components/modifyEquipment';
-import deleteEquipment from '@/equipment/components/deleteEquipment';
+import addEquipment from '@/stuff/equipment/addEquipment';
+import queryEquipment from '@/stuff/equipment/queryEquipment';
+import modifyEquipment from '@/stuff/equipment/modifyEquipment';
+import deleteEquipment from '@/stuff/equipment/deleteEquipment';
 
-import addEquipmentModel from '@/equipmentModel/components/addEquipmentModel';
-import queryEquipmentModel from '@/equipmentModel/components/queryEquipmentModel'
-import modifyEquipmentModel from '@/equipmentModel/components/modifyEquipmentModel';
-import deleteEquipmentModel from '@/equipmentModel/components/deleteEquipmentModel';
+import addEquipmentModel from '@/stuff/equipmentModel/addEquipmentModel';
+import queryEquipmentModel from '@/stuff/equipmentModel/queryEquipmentModel'
+import modifyEquipmentModel from '@/stuff/equipmentModel/modifyEquipmentModel';
+import deleteEquipmentModel from '@/stuff/equipmentModel/deleteEquipmentModel';
 
-import testRegister from '@/user/components/register';
+import testRegister from '@/stuff/user/register';
 
-import addUser from '@/user/components/addUser';
-import modifyUser from '@/user/components/modifyUser';
-import deleteUser from '@/user/components/deleteUser';
-import queryUser from '@/user/components/queryUser';
+import addUser from '@/stuff/user/addUser';
+import modifyUser from '@/stuff/user/modifyUser';
+import deleteUser from '@/stuff/user/deleteUser';
+import queryUser from '@/stuff/user/queryUser';
+
 //网页公共页面
-import cPage from '@/customer/page/cPage';
-import cIndex from '@/customer/page/cIndex';
-import cfind from '@/customer/page/cFindEquipment'
-import loginPage from '@/login/pages/loginPage';
-import register from '@/user/components/register'
+import CustomerPage from '@/customer/page/CustomerPage';
+import cIndex from '@/customer/cIndex';
+import cfind from '@/customer/cFindEquipment'
+import login from '@/login/pages/login';
+import register from '@/user/register';
+import stuffLogin from '@/login/pages/stuffLogin';
+
 //客户页面
-import myTrade from '@/customer/page/myTrade'
-import cLoanEquipment from '@/customer/page/cLoanEquipment'
-import cReceiveEquipment from '@/customer/page/cReceiveEquipment'
-import customerCenter from '@/customer/page/customerCenter'
-import AccountInfo from '@/customer/page/AccountInfo'
-import AccountSetting from '@/customer/page/AccountSetting'
-import cQueryEquipment from '@/customer/page/cQueryEquipment'
-import ChangePassword from '@/customer/page/ChangePassword'
-import centerIndex from '@/customer/page/centerIndex'
+import myTrade from '@/customer/myTrade'
+import cReceiveEquipment from '@/customer/cReceiveEquipment'
+import customerCenter from '@/customer/customerCenter'
+import AccountInfo from '@/customer/AccountInfo'
+import AccountSetting from '@/customer/AccountSetting'
+import cQueryEquipment from '@/customer/cQueryEquipment'
+import ChangePassword from '@/customer/ChangePassword'
+import centerIndex from '@/customer/centerIndex'
+import success from '@/customer/success'
+import cLoanEquipment from '@/customer/LoanEquipment/cLoanEquipment'
+import confirmTrade from '@/customer/LoanEquipment/confirmTrade'
+import confirmTrade2 from '@/customer/LoanEquipment/confirmTrade2'
+import confirmTrade3 from '@/customer/LoanEquipment/confirmTrade3'
 //员工页面
-import stuffLogin from '@/login/components/stuffLogin';
+import stuffPage from '@/stuff/stuffPage';
 //借用交易模块
-import loanEquipment from '@/trade/components/loanEquipment';
-import queryTrade from '@/trade/components/queryTrade';
-import modifyTrade from '@/trade/components/modifyTrade';
-import receiveEquipment from '@/trade/components/receiveEquipment';
-import deleteTrade from '@/trade/components/deleteTrade';
+import loanEquipment from '@/trade/loanEquipment';
+import queryTrade from '@/trade/queryTrade';
+import modifyTrade from '@/trade/modifyTrade';
+import receiveEquipment from '@/trade/receiveEquipment';
+import deleteTrade from '@/trade/deleteTrade';
 
-import position from '@/position/position'
+import position from '@/stuff/position/position'
 
-import queryStorage from '@/storage/components/queryStorage';
-import storage from '@/storage/components/storage';
+import queryStorage from '@/storage/queryStorage';
+import storage from '@/storage/storage';
 import error from '@/result/pages/404';
 
 Vue.use(Router)                    //显示声明要用路由
@@ -59,18 +66,12 @@ const routes = [
   {
     path:'/',
     component:cPage,
-    meta:{
-      requireAuth:false
-    },
     children:[
       { path:'',
         component:cIndex,
-        children:[
-
-        ]
       },
-      { path:'login',component:loginPage},
-      { path: 'register',component:register},
+      { path:'login',component:login},
+      { path:'register',component:register},
       { path:'cfind',component:cfind},
       { path:'customerCenter',component:customerCenter,meta:{
           requireAuth:false
@@ -78,7 +79,16 @@ const routes = [
         children:[
           { path:'',component:centerIndex},
           { path:'myTrade',component:myTrade},
-          { path:'cLoanEquipment',component:cLoanEquipment},
+          { path:'cLoanEquipment',
+            component:cLoanEquipment,
+            children:[
+              { path:'',component:confirmTrade},
+              { path:'step1',component:confirmTrade2},
+              { path:'step2',component:confirmTrade3},
+              { path:'step3',component:success},
+            ]
+          },
+          { path:'success',component:success},
           { path:'cReceiveEquipment',component:cReceiveEquipment},
           { path:'AccountInfo',component:AccountInfo},
           { path:'AccountSetting',component:AccountSetting},
@@ -89,8 +99,11 @@ const routes = [
     ]
   },
   {
-    path:'/stuffLogin',
-    component:stuffLogin
+    path:'/stufflogin',
+    component:stuffPage,
+    children:[
+      {path:'',component:stuffLogin}
+    ]
   },
   {
     path:'/stuff',
@@ -99,6 +112,7 @@ const routes = [
       requireAuth:false
     },
     children:[
+
       {path:'', component:position,},
       {path:'equipmentPage', component:equipmentPage},
       {path:'addEquipment',component:addEquipment},
@@ -116,7 +130,6 @@ const routes = [
       {path:'modifyUser',component:modifyUser},
       {path:'deleteUser',component:deleteUser},
       {path:'queryUser',component:queryUser},
-      {path:'testLogin',component:loginPage},
       {path:'queryStorage',component:queryStorage},
       {path:'storage',component:storage},
 
@@ -124,7 +137,8 @@ const routes = [
       {path:'queryTrade',component:queryTrade},
       {path:'modifyTrade',component:modifyTrade},
       {path:'receiveEquipment',component:receiveEquipment},
-      {path:'deleteTrade',component:deleteTrade}
+      {path:'deleteTrade',component:deleteTrade},
+      {path:'position',component:position}
     ]
   },
   {
@@ -153,7 +167,6 @@ router.beforeEach((to, from, next) => {
       next();
     }
     else {
-      console.log("没有登录吖")
       alert("您没有登录");
       next({
         path: '/',

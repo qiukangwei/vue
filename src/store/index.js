@@ -8,6 +8,7 @@ export default new Vuex.Store({
       equipmentModels:[],
       equipments:[],
       users:[],
+      storages:[],
       equipmentModel:{
         emId:'',
         emName:'',
@@ -17,6 +18,7 @@ export default new Vuex.Store({
       equipment:{
         eId:'',
         eStatus:'',
+        eStorageStatus:'',
         emId:'',
         eRemake:'',
         equipmentModel:{
@@ -39,13 +41,40 @@ export default new Vuex.Store({
         lastTime:"",
       },
       loginUser:{
-        userId:"",
-        userPosition:"",
-        userTel:"",
-        userAccount:"",
-        lastTime:""
+        userRealName:null,
+        userId:null,
+        userName:null,
+        userTel:null,
+        userAddress:null,
+        userPosition:null,
+        userAccount:null,
+        lastTime:null
       },
-      isLogin:[]
+      equipmentTrade:{
+        userId:'',
+        userRealName:'',
+        emModel:'',
+        emName:'',
+        eId:'',
+        userTel:'',
+        etDdl:'',
+      },
+      storage:{
+        inStorage:'',
+        totalStorage:'',
+        equipment:{
+          eId:'',
+          equipmentModel:{
+            emId:'',
+            emName:'',
+            emModel:''
+          }
+        }
+      },
+      success:{
+        id:'',
+        startPage:''
+      },
     },
   mutations:{
       setEquipmentModel(state,equipmentModel){
@@ -56,15 +85,28 @@ export default new Vuex.Store({
       },
     setLoginUser(state,loginUser){
         this.state.loginUser=loginUser;
-      },
+      console.log('保存用户信息');
+    },
     setUser(state,User){
         this.state.User=User;
         },
     setUsers(state,Users){
       this.state.Users=Users;
     },
-    setIsLogin(state,IsLogin){
-      this.isLogin=isLogin
+    setEquipments(state,equipments){
+        this.state.equipments=equipments;
+    },
+    setEquipment(state,equipment){
+        this.state.equipment=equipment;
+    },
+    setEquipmentTrade(state,equipmentTrade){
+        this.state.equipmentTrade=equipmentTrade;
+    },
+    setStorages(state,storages){
+        this.state.storages = storages;
+    },
+    setSuccess(state,success){
+      this.state.success = success;
     }
   }
 });
